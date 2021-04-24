@@ -3,4 +3,4 @@
 #
 SELECT post_id as 'PostID', meta_value as 'ViewCount'
     FROM wp_postmeta 
-    WHERE post_id = 82 AND meta_key = 'post_views_count';
+    WHERE post_id = [POST_ID] AND meta_key = 'post_views_count';
