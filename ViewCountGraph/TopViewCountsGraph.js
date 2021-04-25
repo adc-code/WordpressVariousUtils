@@ -1,5 +1,23 @@
 function D3App ()
 {
+    // 
+    // UpdateDateElem: used to update the date element on the bottom of the page with the
+    //                 date that the data file was last modified.
+    //
+    async function UpdateDateElem (fileName)
+    {
+	let response = await fetch (fileName);
+		
+	if (response.status != 200)
+        {
+	    throw new Error("Server Error");
+	}
+
+        let fileDate = new Date (await response.headers.get('Last-Modified'));
+        document.getElementById ('lastUpdated').innerText = 'Last Updated: ' + fileDate.toLocaleString ();
+    }
+
+
     // The data...
     var dataFile = 'Results_ViewCounts_ByCategory.dsv';
 
@@ -13,7 +31,7 @@ function D3App ()
     var margin = {
             top:    0,
             right:  5,
-            bottom: 15,
+            bottom: 0,
             left:   55
     };
 
@@ -38,6 +56,7 @@ function D3App ()
         ];  
     }
 
+    UpdateDateElem (dataFile);
 
     //
     // Read the CSV...
