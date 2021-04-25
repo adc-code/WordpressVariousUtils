@@ -18,7 +18,7 @@ function D3App ()
     };
 
     var width  = 570 - margin.left - margin.right;
-    var height = 550 - margin.top - margin.bottom;
+    var height = 450 - margin.top - margin.bottom;
 
     var updateDuration = 500;
 
@@ -112,7 +112,7 @@ function D3App ()
             if (i != 10)
                 svg.append ('text')
                    .attr ('x', -5)
-                   .attr ('y', yScale (10 - 0.75 - i) )
+                   .attr ('y', yScale (10 - 0.81 - i) )
                    .text (i+1)
                    .attr ('class', 'textNum')
                    .attr ('fill', 'white')
