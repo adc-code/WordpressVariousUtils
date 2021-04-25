@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>Top Post Views</title>
+
+        <script type="text/javascript" src="d3.v5.js"></script>
+        <script type="text/javascript" src="TopViewCountsGraph.js"></script>
+
+        <script type="text/javascript">
+
+            // Add a wide left margin so that the table seems centered
+            var CenterContents = function ()
+            {
+                var leftMargin = (window.innerWidth - 570) / 2;
+                d3.select ('#contents').style ('margin-left', leftMargin + 'px');
+            }
+
+            // Also re-center the table when the page was resized...
+            d3.select(window).on ('resize', function () { CenterContents (); } );
+
+            // eventWindowLoaded: used to be sure that everything has been loaded first 
+            window.addEventListener ('load', eventWindowLoaded, false);     
+            function eventWindowLoaded ()
+            {
+                CenterContents ();
+                D3App ();
+            } 
+
+        </script>
+
+
+        <style>
+            .controls
+            {
+                overflow: auto;
+                width:    520px;
+            }
+
+            .button 
+            {
+                position:         relative;
+                text-align:       center;
+
+                float:            bottom;
+                vertical-align:   middle;
+
+                background-color: #cccccc;
+                border-radius:    7px;
+                border-style:     solid;
+                border-color:     white;
+                border-width:     3px;
+                width:            100px; 
+                padding:          7px 4px; 
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+                cursor:           pointer;
+
+                /* Prevent text selection */
+                -webkit-user-select: none;  /* Safari */
+                -ms-user-select:     none;  /* IE 10+ and Edge */
+                user-select:         none;  /* Standard syntax */
+            }
+
+            .button:hover
+            {
+                border-style:     solid;
+                border-color:     #ff4000;
+            } 
+
+            .button_sel
+            {
+                background-color: #4d4d4d;
+                color:            #ffffff;
+            }
+
+            .textTitle
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                font-weight:      bold;
+                color:            #000000;
+            }
+
+            .textViews
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        12px;
+                color:            #000000;
+            }
+
+            .textNum
+            {
+                font-family:      Helvetica, sans-serif;
+                font-size:        40px;
+                font-weight:      bold;
+                color:            #000000;
+                vertical-align:   center;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id='contents'> 
+            <div class='controls'>
+                <div id='btnID_1' style='float:left; margin-left:50px' class='button datarange button_sel' stateID='0'> Overall </div>
+                <div id='btnID_2' style='float:left' class='button datarange' stateID='1'> Profolio Projects </div>
+                <div id='btnID_3' style='float:left' class='button datarange' stateID='2'> Side Projects </div>
+                <div id='btnID_4' style='float:left' class='button datarange' stateID='3'> Blog Posts </div>
+            </div>
+            <div style='height: 3px'> </div>
+            <div id='graph'> </div>
+        </div> 
+
+    </body>
+
+</html>
+
+
