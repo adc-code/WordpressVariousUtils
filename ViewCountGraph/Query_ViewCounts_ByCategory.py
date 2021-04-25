@@ -12,23 +12,30 @@
 #
 
 
-# need to change...
-USER = <USER NAME>
-PWD  = <PASSWORD>
 
 
+import sys
 import datetime
 import mysql.connector
 
 
-cnx = mysql.connector.connect (user=USER, password=PWD, database='wpSite')
+if len(sys.argv) != 4:
+    print ('Error: incorrect cmd line arguments')
+    print (f'Usage: {sys.argv[0]}  <USERNAME>  <PASSWORD>  <FILENAME>')
+    print ()
+    sys.exit ()
+    
+
+cnx = mysql.connector.connect (user=sys.argv[1], password=sys.argv[2], database='wpSite')
+FileName = sys.argv[3]  # 'Results_ViewCounts_ByCategory.dsv'
 
 # make a cursor object so that we can query the database
 cursor = cnx.cursor ()
 
 # open a CSV file and write the header to it...
-f = open ('Results_ViewCounts_ByCategory.dsv', 'w')
+f = open (FileName, 'w')   
 f.write ('PostID|PostTitle|URL|ViewCount\n')
+writeCount = 0
 
 # categories used to make queries...
 categoryNames = [ 'Portfolio Project', 'Side Projects', 'Blog Post' ]
@@ -61,13 +68,16 @@ for i in range (-1, len(categoryNames)):
 
     # write the query to the file...
     for (postID, postTitle, URL, viewCount) in cursor:
+        writeCount += 1
         f.write (f"{postID}|{postTitle}|{URL}|{viewCount}\n")
 
 
 f.close ()
-
 cursor.close()
 cnx.close ()
+
+
+print (f'{sys.argv[0]}: Wrote {writeCount} lines to {FileName}')
 
 
 
